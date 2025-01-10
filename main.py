@@ -4,55 +4,11 @@ root = tk.Tk()
 root.title("Mértékegység Átváltó")
 title_label = tk.Label(root, text="Mértékegység Átváltó", font=("Arial", 16))
 title_label.pack(pady=20)
-def convert_length():
-    try:
-        value = float(entry.get())
-        from_unit = from_unit_var.get()
-        to_unit = to_unit_var.get()
-        conversion_factors = {
-            "Méter": 1,
-            "Kilométer": 0.001,
-            "Yard": 1.09361,
-            "Mérföld": 0.000621371,
-        }
-        converted_value = value * (conversion_factors[to_unit] / conversion_factors[from_unit])
-        result_label.config(text=f"Eredmény: {converted_value:.4f} {to_unit}")
-    except ValueError:
-        messagebox.showerror("Hiba", "Kérjük, adjon meg egy érvényes számot!")
-def convert_weight():
-    try:
-        value = float(entry.get())
-        from_unit = from_unit_var.get()
-        to_unit = to_unit_var.get()
-        conversion_factors = {
-            "Kilogramm": 1,
-            "Gramm": 1000,
-            "Font": 2.20462,
-            "Ounce": 35.274,
-        }
-        converted_value = value * (conversion_factors[to_unit] / conversion_factors[from_unit])
-        result_label.config(text=f"Eredmény: {converted_value:.4f} {to_unit}")
-    except ValueError:
-        messagebox.showerror("Hiba", "Kérjük, adjon meg egy érvényes számot!")
-def convert_time():
-    try:
-        value = float(entry.get())
-        from_unit = from_unit_var.get()
-        to_unit = to_unit_var.get()
-        conversion_factors = {
-            "Másodperc": 1,
-            "Perc": 1/60,
-            "Óra": 1/3600,
-            "Nap": 1/86400,
-        }    
-        converted_value = value * (conversion_factors[to_unit] / conversion_factors[from_unit])
-        result_label.config(text=f"Eredmény: {converted_value:.4f} {to_unit}")
-    except ValueError:
-        messagebox.showerror("Hiba", "Kérjük, adjon meg egy érvényes számot!")
 def open_length_conversion():
     length_window = tk.Toplevel(root)
     length_window.title("Hossz Átváltás")
     entry_label = tk.Label(length_window, text="Adja meg az értéket:")
+    global entry
     entry_label.pack(pady=5)
     entry = tk.Entry(length_window)
     entry.pack(pady=5)
@@ -79,6 +35,7 @@ def open_weight_conversion():
     entry_label.pack(pady=5)
     entry = tk.Entry(weight_window)
     entry.pack(pady=5)
+    global from_unit_var
     from_unit_var = tk.StringVar(value="Kilogramm")
     from_unit_label = tk.Label(weight_window, text="Kezdő mértékegység:")
     from_unit_label.pack(pady=5)
@@ -128,4 +85,50 @@ def quit_program():
     root.quit()
 exit_button = tk.Button(root, text="Kilépés", command=quit_program)
 exit_button.pack(pady=20)
+def convert_length():
+    try:
+        value = float(entry.get())
+        from_unit = from_unit_var.get()
+        to_unit = to_unit_var.get()
+        conversion_factors = {
+            "Méter": 1,
+            "Kilométer": 0.001,
+            "Yard": 1.09361,
+            "Mérföld": 0.000621371,
+        }
+        converted_value = value * (conversion_factors[to_unit] / conversion_factors[from_unit])
+        result_label.config(text=f"Eredmény: {converted_value:.4f} {to_unit}")
+    except ValueError:
+        messagebox.showerror("Hiba", "Kérjük, adjon meg egy érvényes számot!")
+def convert_weight():
+    try:
+        value = float(entry.get())
+        from_unit = from_unit_var.get()
+        to_unit = to_unit_var.get()
+        conversion_factors = {
+            "Kilogramm": 1,
+            "Gramm": 1000,
+            "Font": 2.20462,
+            "Ounce": 35.274,
+        }
+        converted_value = value * (conversion_factors[to_unit] / conversion_factors[from_unit])
+        result_label.config(text=f"Eredmény: {converted_value:.4f} {to_unit}")
+    except ValueError:
+        messagebox.showerror("Hiba", "Kérjük, adjon meg egy érvényes számot!")
+def convert_time():
+    try:
+        value = float(entry.get())
+        from_unit = from_unit_var.get()
+        to_unit = to_unit_var.get()
+        conversion_factors = {
+            "Másodperc": 1,
+            "Perc": 1/60,
+            "Óra": 1/3600,
+            "Nap": 1/86400,
+        }    
+        converted_value = value * (conversion_factors[to_unit] / conversion_factors[from_unit])
+        result_label.config(text=f"Eredmény: {converted_value:.4f} {to_unit}")
+    except ValueError:
+        messagebox.showerror("Hiba", "Kérjük, adjon meg egy érvényes számot!")
+
 root.mainloop()
